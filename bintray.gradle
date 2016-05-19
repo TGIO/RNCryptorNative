@@ -1,0 +1,61 @@
+apply plugin: 'com.jfrog.bintray'
+
+version = libraryVersion
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from file("src/main/java/")
+}
+
+task androidJar(type: Jar, dependsOn: ['assemble']) {
+    group 'Build'
+    description 'pack jnilibs'
+    from zipTree('build/intermediates/bundles/release/classes.jar')
+    from(file('src/main/jniLibs')) {
+        into 'lib'
+    }
+}
+
+task javadoc(type: Javadoc) {
+    source = file("src/main/java/")
+    classpath += project.files('/Users/pro/Library/Android/sdk/platforms/android-23/android.jar')
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            desc = libraryDescription
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
+            }
+        }
+    }
+}

@@ -1,0 +1,94 @@
+apply plugin: 'com.android.model.library'
+
+def version = 7;
+
+ext {
+
+
+
+    bintrayRepo = 'maven'
+    bintrayName = 'rncryptor-native'
+
+    publishedGroupId = 'com.github.tgio'
+    libraryName = 'RNCryptorNative'
+    artifact = 'rncryptor-native'
+
+    libraryDescription = 'Android JNI model library with prebuilt RNCryptor++'
+
+    siteUrl = 'https://github.com/TGIO/RNCryptorNative'
+    gitUrl = 'https://github.com/TGIO/RNCryptorNative.git'
+
+    libraryVersion = "0.0.".concat(version.toString())
+
+    developerId = 'tgio'
+    developerName = 'Giorgi Tabatadze'
+    developerEmail = 'gio.caporegime@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+
+model {
+    android {
+        compileSdkVersion = 23
+        buildToolsVersion = "23.0.3"
+        defaultConfig {
+            minSdkVersion.apiLevel = 16
+            targetSdkVersion.apiLevel = 23
+            versionCode version
+            versionName libraryVersion
+        }
+        buildTypes {
+            release {
+                minifyEnabled = false
+                proguardFiles.add(file("proguard-rules.pro"))
+            }
+        }
+        ndk {
+            moduleName = 'rncrypto'
+            cppFlags.addAll(['-frtti', '-fexceptions'])
+            ldLibs.add("log")
+            stl "gnustl_shared"
+        }
+        sources {
+            main {
+                jni {
+                    dependencies {
+                        library "cryptopp" linkage "shared"
+                    }
+                    exportedHeaders {
+                        srcDir "src/main/jni"
+                    }
+                }
+                jniLibs {
+                    dependencies {
+                        dependencies {
+                            library "cryptopp"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        libs(PrebuiltLibraries) {
+            cryptopp {
+                headers.srcDir "src/main/jni/cryptopp"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("src/main/jniLibs/${targetPlatform.getName()}/libcryptopp_shared.so")
+                }
+            }
+        }
+    }
+
+
+
+}
+
+
+
+apply from: '../bintray.gradle';
+apply from: '../install.gradle';
