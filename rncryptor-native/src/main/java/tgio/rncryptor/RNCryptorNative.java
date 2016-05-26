@@ -1,5 +1,15 @@
 package tgio.rncryptor;
 
+import android.util.Base64;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /*
  * Copyright (C) 2016 Giorgi TGIO Tabatadze
  *
@@ -21,7 +31,6 @@ public class RNCryptorNative {
         System.loadLibrary("gnustl_shared");
         System.loadLibrary("cryptopp_shared");
         System.loadLibrary("rncrypto");
-
     }
 
     /**
@@ -60,7 +69,6 @@ public class RNCryptorNative {
         } catch (Exception e) {
             RNCryptorNativeCallback.done(null, e);
         }
-
     }
 
     /**
@@ -78,6 +86,59 @@ public class RNCryptorNative {
             RNCryptorNativeCallback.done(null, e);
         }
 
+    }
+
+    /**
+     * Encrypts file using password
+     * @param raw the original file to be encrypted
+     * @param encryptedFile the result file
+     * @param password strong generated password
+     * @throws IOException
+     */
+    public static void encryptFile(File raw, File encryptedFile, String password) throws IOException {
+        byte[] b = readBytes(raw);
+        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        byte[] encryptedBytes = new RNCryptorNative().encrypt(encodedImage, password);
+        writeBytes(encryptedFile, encryptedBytes);
+    }
+
+    /**
+     * Decrypts file using password
+     * @param encryptedFile file which needs to be decrypted
+     * @param result destination file for decrypted file
+     * @param passowrd strong generated password
+     * @throws IOException
+     */
+    public static void decryptFile(File encryptedFile, File result, String passowrd) throws IOException {
+        byte[] b = readBytes(encryptedFile);
+        String decryptedImageString = new RNCryptorNative().decrypt(new String(b), passowrd);
+        byte[] decodedBytes = Base64.decode(decryptedImageString, 0);
+        writeBytes(result, decodedBytes);
+    }
+
+
+    private static byte[] readBytes(File file){
+        int size = (int) file.length();
+        byte[] bytes = new byte[size];
+        try {
+            BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+            buf.read(bytes, 0, bytes.length);
+            buf.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return bytes;
+    }
+
+    private static void writeBytes(File file, byte[] bytes) throws IOException{
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+        bos.write(bytes);
+        bos.flush();
+        bos.close();
     }
 
     public interface RNCryptorNativeCallback {

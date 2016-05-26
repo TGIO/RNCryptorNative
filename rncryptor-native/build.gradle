@@ -1,6 +1,6 @@
 apply plugin: 'com.android.model.library'
 
-def version = 7;
+def version = 8;
 
 ext {
 

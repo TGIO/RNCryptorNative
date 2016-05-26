@@ -5,15 +5,15 @@
 Android JNI model implementation of Rob Napier's RNCryptor.
 
 
-## Import guide
+#### Import guide
 
 ```
 dependencies {
-    compile 'com.github.tgio:rncryptor-native:0.0.7'
+    compile 'com.github.tgio:rncryptor-native:0.0.8'
 }
 ```
 
-## Usage
+#### Usage
 
   ```java
   
@@ -45,7 +45,18 @@ RNCryptorNative.decryptAsync(encrypted, password, new RNCryptorNative.Callback()
         System.out.println("decrypted async: " + decrypted);
     }
 });
+
+//Working with files
+
+//Encrypt
+
+RNCryptorNative.encryptFile(new File("path/to/original"), new File("path/to/encrypted"), "password");
+
+//Decrypt
+
+RNCryptorNative.decryptFile(new File("path/to/encrypted"), new File("path/to/decrypted"), "password");
   ```
+  
 #### Benchmark:
 
 You might know that JNCryptor (Java port for RNCryptor) already exists. But there is a huge problem - perfomance. This is why RNCryptorNative is better solution. Screenshots of benchmarks: 
@@ -54,8 +65,4 @@ You might know that JNCryptor (Java port for RNCryptor) already exists. But ther
   
 ## Credits
 
-[Rob Napier](https://github.com/rnapier)
-
-[RNCryptor Team](https://github.com/RNCryptor)
-
-[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+[Rob Napier](https://github.com/rnapier), [RNCryptor Team](https://github.com/RNCryptor), [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
