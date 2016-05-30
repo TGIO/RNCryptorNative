@@ -1,4 +1,4 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/99ac4e30d4234c55bc7501a5a6f1da34)](https://www.codacy.com/app/gio-caporegime/RNCryptorNative?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TGIO/RNCryptorNative&amp;utm_campaign=Badge_Grade)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RNCryptorNative-green.svg?style=true)](https://android-arsenal.com/details/1/3643)
 
 ## RNCryptorNative
 
