@@ -59,7 +59,7 @@ RNCryptorNative.decryptFile(new File("path/to/encrypted"), new File("path/to/dec
   
 #### Benchmark:
 
-You might know that JNCryptor (Java port for RNCryptor) already exists. But there is a huge problem - perfomance. This is why RNCryptorNative is better solution. Screenshots of benchmarks: 
+You might know that JNCryptor (Java port for RNCryptor) already exists. But there is a huge problem - performance. This is why RNCryptorNative is better solution. Screenshots of benchmarks: 
 
 | <img src="screenshots/1.png" width="250"/> | <img src="screenshots/25.png" width="250"/> |
   
