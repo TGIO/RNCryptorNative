@@ -8,3 +8,6 @@
 obj/
 app/obj/*
 /secrets
+*.iml
+benchmark/benchmark.iml
+rncryptor-native/rncryptor-native.iml

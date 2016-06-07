@@ -54,6 +54,12 @@ public class RNCryptorNative {
      */
     public native String decrypt(String encrypted, String password);
 
+    /**
+     * Generates Key with salt and password.
+     * @param salt
+     * @param password
+
+     */
     public native String generateKey(final String salt, final String password);
 
     /**
