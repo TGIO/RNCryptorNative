@@ -57,7 +57,7 @@ class RNCryptor {
 		RNCryptorHmacAlgorithm hmac_algorithm;
 
 		string generateHmac(RNCryptorPayloadComponents components, string password);
-		SecByteBlock generateKey(const string salt, const string password);
+
 
 		static string base64_encode(string plaintext);
 		static string base64_decode(string encoded);
@@ -72,9 +72,11 @@ class RNCryptor {
 		static const int pbkdf2_iterations = 10000;
 		static const short pbkdf2_keyLength = 32;
 		static const short hmac_length = 32;
+	    static SecByteBlock generateKey(const string salt, const string password);
 
 		RNCryptor();
 		void configureSettings(RNCryptorSchema schemaVersion);
+
 };
 
 #endif

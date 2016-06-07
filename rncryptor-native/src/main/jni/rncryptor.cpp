@@ -130,8 +130,7 @@ string RNCryptor::generateHmac(RNCryptorPayloadComponents components, string pas
 
 	return hmac;
 }
-
-SecByteBlock RNCryptor::generateKey(const string salt, const string password)
+ SecByteBlock RNCryptor::generateKey(const string salt, const string password)
 {
 	SecByteBlock key(RNCryptor::pbkdf2_keyLength);
 

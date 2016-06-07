@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        RNCryptorNative rn = new RNCryptorNative();
+
 
         handler = new Handler();
         mChart = (BarChart) findViewById(R.id.chart1);
