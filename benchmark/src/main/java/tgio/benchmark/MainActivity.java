@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         });
     }
 
+    
     void setupStrings() {
         RandomString rnstr = new RandomString(200);
         for (int i = 0; i < INTSTRINGS_COUNT; i++) {
