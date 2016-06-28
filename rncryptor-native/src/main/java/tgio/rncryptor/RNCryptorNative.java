@@ -60,7 +60,8 @@ public class RNCryptorNative {
      * @param password
 
      */
-    public static native String generateKey(final String salt, final String password);
+    public static native char[] generateKey(final String salt, final String password);
+
 
     /**
      * Decrypts encrypted base64 string and returns via callback

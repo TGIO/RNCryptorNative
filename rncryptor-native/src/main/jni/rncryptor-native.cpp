@@ -68,14 +68,23 @@ Java_tgio_rncryptor_RNCryptorNative_getABI(JNIEnv *env, jobject thiz) {
 #endif
     return (env)->NewStringUTF(ABI);
 }
-jstring Java_tgio_rncryptor_RNCryptorNative_generateKey(JNIEnv *env, jobject instance, const jstring salt_, const jstring password_)
- {
+jcharArray Java_tgio_rncryptor_RNCryptorNative_generateKey(JNIEnv *env, jobject instance, const jstring salt_, const jstring password_) {
     const char *salt = env->GetStringUTFChars(salt_, 0);
     const char *password = env->GetStringUTFChars(password_, 0);
     RNCryptor *cryptor = new RNCryptor();
-    string value = (char * )cryptor->generateKey(salt, password).data();
+    string value = (char *) cryptor->generateKey(salt, password).data();
+
+
     delete cryptor;
-    return env->NewStringUTF(value.c_str());
+    env->ReleaseStringUTFChars(salt_, salt);
+    env->ReleaseStringUTFChars(password_, password);
+    char array[1024];
+    strcpy(array, value.c_str());
+    jcharArray charArr = env->NewCharArray(1024);
+    env->SetCharArrayRegion(charArr, 0, 1024, (jchar *) array);
+    return charArr;
+
+
 }
 
 jbyteArray Java_tgio_rncryptor_RNCryptorNative_encrypt(JNIEnv *env, jobject instance, jstring raw_, jstring password_) {

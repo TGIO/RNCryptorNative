@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
 
 
 
+        char[] arr = new char[1024];
+        arr = RNCryptorNative.generateKey("12", password);
+        String key = String.valueOf(arr);
+        System.out.println(key);
+
+
         handler = new Handler();
         mChart = (BarChart) findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
@@ -108,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         });
     }
 
-    
+
     void setupStrings() {
         RandomString rnstr = new RandomString(200);
         for (int i = 0; i < INTSTRINGS_COUNT; i++) {
