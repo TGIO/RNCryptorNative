@@ -26,7 +26,7 @@ extern "C" {
     JNIEXPORT jstring JNICALL Java_tgio_rncryptor_RNCryptorNative_getABI(JNIEnv* env, jobject thiz);
     JNIEXPORT jbyteArray JNICALL Java_tgio_rncryptor_RNCryptorNative_encrypt(JNIEnv *env, jobject instance, jstring raw_, jstring password_);
     JNIEXPORT jstring JNICALL Java_tgio_rncryptor_RNCryptorNative_decrypt(JNIEnv *env, jobject instance, jstring encrypted_, jstring password_);
-    JNIEXPORT jcharArray JNICALL Java_tgio_rncryptor_RNCryptorNative_generateKey(JNIEnv *env, jobject instance, const jstring salt_, const jstring password_);
+    JNIEXPORT jbyteArray JNICALL Java_tgio_rncryptor_RNCryptorNative_generateKey(JNIEnv *env, jobject instance, const jstring salt_, const jstring password_);
 #ifdef __cplusplus
 }
 #endif

@@ -60,7 +60,7 @@ public class RNCryptorNative {
      * @param password
 
      */
-    public static native char[] generateKey(final String salt, final String password);
+    public static native byte[] generateKey(final String salt, final String password);
 
 
     /**
