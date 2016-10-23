@@ -7,7 +7,7 @@ Android JNI model implementation of Rob Napier's RNCryptor.
 
 #### Import guide
 
-```
+```gradle
 dependencies {
     compile 'com.github.tgio:rncryptor-native:0.0.8'
 }
