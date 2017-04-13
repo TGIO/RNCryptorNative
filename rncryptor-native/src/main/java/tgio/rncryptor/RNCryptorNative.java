@@ -114,12 +114,12 @@ public class RNCryptorNative {
      * Decrypts file using password
      * @param encryptedFile file which needs to be decrypted
      * @param result destination file for decrypted file
-     * @param passowrd strong generated password
+     * @param password strong generated password
      * @throws IOException
      */
-    public static void decryptFile(File encryptedFile, File result, String passowrd) throws IOException {
+    public static void decryptFile(File encryptedFile, File result, String password) throws IOException {
         byte[] b = readBytes(encryptedFile);
-        String decryptedImageString = new RNCryptorNative().decrypt(new String(b), passowrd);
+        String decryptedImageString = new RNCryptorNative().decrypt(new String(b), password);
         byte[] decodedBytes = Base64.decode(decryptedImageString, 0);
         writeBytes(result, decodedBytes);
     }
