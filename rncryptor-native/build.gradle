@@ -1,11 +1,8 @@
 apply plugin: 'com.android.model.library'
 
-def version = 8;
+def version = 9;
 
 ext {
-
-
-
     bintrayRepo = 'maven'
     bintrayName = 'rncryptor-native'
 
@@ -29,7 +26,6 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-
 model {
     android {
         compileSdkVersion = 25
@@ -49,7 +45,7 @@ model {
         ndk {
             moduleName = 'rncrypto'
             cppFlags.addAll(['-frtti', '-fexceptions'])
-            ldLibs.add("log")
+            ldLibs.addAll(['android', 'log'])
             stl "gnustl_shared"
         }
         sources {
@@ -83,8 +79,6 @@ model {
             }
         }
     }
-
-
 
 }
 
